@@ -35,7 +35,7 @@ class ClientCommGYM:
         self.LOG = False
         self.player = None
         self.global_ect = None
-        self.lastSsoType = LEARNING_SSO_TYPE.JSON
+        self.lastSsoType = LEARNING_SSO_TYPE.BOTH
         
         self.sso.Terminal=False
 
@@ -105,7 +105,7 @@ class ClientCommGYM:
         
       
         info = {'winner': self.sso.gameWinner, 'actions': self.actions()}  
-        return self.sso.image, score, self.sso.Terminal, info
+        return self.pack(), score, self.sso.Terminal, info
 
     def reset(self, lvl):
         #flag=True
@@ -180,7 +180,19 @@ class ClientCommGYM:
                     self.sso.Terminal=False
                 
 
-        return self.sso.image
+        return self.pack()
+
+    def pack(self):
+        return {
+            'image': self.sso.image,
+            'observationGrid': self.sso.observationGrid,
+            'NPCPositions': self.sso.NPCPositions,
+            'immovablePositions': self.sso.immovablePositions,
+            'movablePositions': self.sso.movablePositions,
+            'resourcesPositions': self.sso.resourcesPositions,
+            'portalsPositions': self.sso.portalsPositions,
+            'fromAvatarSpritesPositions': self.sso.fromAvatarSpritesPositions
+        }
 
     # def reward(self):
     #     scoreDelta = self.sso.gameScore-self.lastScore
@@ -332,7 +344,7 @@ class ClientCommGYM:
         ect.setMaxTimeMillis(CompetitionParameters.INITIALIZATION_TIME)
         #self.player.init(self.sso, ect.copy())
         #self.lastSsoType = self.player.lastSsoType
-        self.lastSsoType = LEARNING_SSO_TYPE.IMAGE
+        self.lastSsoType = LEARNING_SSO_TYPE.BOTH
         actions=self.actions()
 
         if ect.exceededMaxTime():
@@ -352,7 +364,7 @@ class ClientCommGYM:
         if (not action) or (action == ""):
             action = "ACTION_NIL"
         #self.lastSsoType = self.player.lastSsoType
-        self.lastSsoType = LEARNING_SSO_TYPE.IMAGE
+        self.lastSsoType = LEARNING_SSO_TYPE.BOTH
 
 
         if ect.exceededMaxTime():

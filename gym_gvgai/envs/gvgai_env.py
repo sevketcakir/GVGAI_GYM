@@ -42,7 +42,7 @@ class GVGAI_Env(gym.Env):
         self.action_space = spaces.Discrete(len(self.actions))
 
         # Observation is the remaining time
-        self.observation_space = spaces.Box(low=0, high=255, shape=self.img.shape, dtype=np.uint8)
+        self.observation_space = spaces.Box(low=0, high=255, shape=(1,), dtype=dict)
         
     def step(self, action):
         """
@@ -79,7 +79,7 @@ class GVGAI_Env(gym.Env):
         return self.img
 
     def render(self, mode='human'):
-        img = self.img[:,:,:3]
+        img = self.img['image'][:,:,:3]
         if mode == 'rgb_array':
             return img
         elif mode == 'human':
