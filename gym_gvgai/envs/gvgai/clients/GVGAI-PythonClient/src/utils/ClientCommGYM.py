@@ -178,6 +178,9 @@ class ClientCommGYM:
                     self.lastScore=0
                 else:
                     self.sso.Terminal=False
+
+        self.grid_x_divider=self.sso.worldDimension[0]/len(self.sso.observationGrid)
+        self.grid_y_divider=self.sso.worldDimension[1]/len(self.sso.observationGrid[0])
                 
 
         return self.pack()
@@ -191,7 +194,8 @@ class ClientCommGYM:
             'movablePositions': self.sso.movablePositions,
             'resourcesPositions': self.sso.resourcesPositions,
             'portalsPositions': self.sso.portalsPositions,
-            'fromAvatarSpritesPositions': self.sso.fromAvatarSpritesPositions
+            'fromAvatarSpritesPositions': self.sso.fromAvatarSpritesPositions,
+            'avatarGridPosition': [int(self.sso.avatarPosition[0]/self.grid_x_divider), int(self.sso.avatarPosition[1]/self.grid_y_divider)]
         }
 
     # def reward(self):
