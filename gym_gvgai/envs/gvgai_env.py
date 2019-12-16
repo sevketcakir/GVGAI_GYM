@@ -25,7 +25,7 @@ class GVGAI_Env(gym.Env):
 
     def __init__(self, game, level, version):
         self.__version__ = "0.0.2"
-        metadata = {'render.modes': ['human', 'rgb_array']}
+        self.metadata = {'render.modes': ['human', 'rgb_array']}
 
         #Send the level to play
         self.GVGAI = gvgai.ClientCommGYM(game, version, level, dir)
